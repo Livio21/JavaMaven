@@ -1,9 +1,11 @@
 package org.example;
 
+
+import org.apache.commons.lang3.StringUtils;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
 public class App {
     public static class DbConn {
         String url;
@@ -70,6 +72,10 @@ public class App {
         }
     }
 
+    public static void RotateName(String s, int n ){
+        System.out.println(StringUtils.rotate(s,n));
+    }
+
 
     public static void main(String[] args) {
         DbConn props = new DbConn("jdbc:postgresql://localhost:5433/internship", "postgres", "openpgpwd");
@@ -82,8 +88,6 @@ public class App {
         String updatePointsStudent = "update student set points = 100 where student_id = 69";
         String deleteStudent = "delete from student where student_id = 69";
 
-
-
         QueryResultPrinter(allTablesQuery,props,"col","tablename" );
         QueryResultPrinter(allRowsKursi,props,"row",null );
         QueryResultPrinter(studentsPointsMoreThanTen,props,"row",null );
@@ -92,7 +96,7 @@ public class App {
         QueryUpdate(updatePointsStudent, props);
         QueryUpdate(deleteStudent, props);
 
-
+        RotateName("name",3);
 
     }
 }
