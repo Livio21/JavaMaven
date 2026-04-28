@@ -61,6 +61,10 @@ public class Kursi {
     }
 
     public static void deleteKursi(@NonNull String kursi_id, DBConnection db) {
+        if (!rowExistsHelperFun("kursi", "kursi_id", kursi_id, db)) {
+            System.out.println("Error: kursi nuk ekziston.");
+            return;
+        }
         Map<String, String> idMap = new LinkedHashMap<>();
         idMap.put("kursi_id", kursi_id);
         deleteRow(idMap, "kursi", db);

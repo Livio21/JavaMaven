@@ -44,6 +44,7 @@ public class Student {
     public static void getStudents(DBConnection db){
         execQuery("select * from student",db, "row",null);
     }
+
     public static void getStudent(DBConnection db, @NonNull String student_id){
         if (!rowExistsHelperFun("student", "student_id", student_id, db)) {
             System.out.println("Error: student nuk ekziston");
@@ -70,6 +71,16 @@ public class Student {
         String query = "update student set " + setString + " where student_id = " + student_id;
         execUpdate(query, db);
 
+    }
+
+    public static void deleteStudent(@NonNull String student_id, DBConnection db) {
+        if (!rowExistsHelperFun("student", "student_id", student_id, db)) {
+            System.out.println("Error: student nuk ekziston");
+            return;
+        }
+        Map<String, String> idMap = new LinkedHashMap<>();
+        idMap.put("student_id", student_id);
+        deleteRow(idMap, "student", db);
     }
 
 }

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class AppOld {
+public class AppOld_solution {
 
     //Class for keeping db connection properties
     public static class DbConn {
@@ -173,15 +173,15 @@ public class AppOld {
         String updatePointsStudent = "update student set points = 100 where student_id = 74";
         String deleteStudent = "delete from student where student_id = 75";
 
-//        queryResultPrinter(allTablesQuery, props, "col", "tablename");
-//        queryResultPrinter(allRowsKursi, props, "row", null);
-//        queryResultPrinter(studentsPointsMoreThanTen, props, "row", null);
-//
-////        queryUpdate(addStudent, props);
-//        queryUpdate(updatePointsStudent, props);
-//        queryUpdate(deleteStudent, props);
+       queryResultPrinter(allTablesQuery, props, "col", "tablename");
+       queryResultPrinter(allRowsKursi, props, "row", null);
+       queryResultPrinter(studentsPointsMoreThanTen, props, "row", null);
 
-//        rotateName(queryResult(showStudents,props), 3,props);
+       queryUpdate(addStudent, props);
+       queryUpdate(updatePointsStudent, props);
+       queryUpdate(deleteStudent, props);
+
+       rotateName(queryResult(showStudents,props), 3,props);
         upperCaseName(queryResult(showStudents,props), props);
 
     }

@@ -4,13 +4,12 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 public class DBManager {
 
 
-    // Use the resultset and metadata to loop through and get all columns and return a list of them
+    // Merr te dhenat rreth resultset, ne kte rast sa kolona jan dhe ben loop te vlerave dhe i shton nje nje list per rrjeshtin
     public static List<Object> rowHelperFun(ResultSet result) throws SQLException {
         ResultSetMetaData rsmd = result.getMetaData();
         int columnCount = rsmd.getColumnCount();
@@ -21,6 +20,8 @@ public class DBManager {
         return row;
     }
 
+
+    //Kontrollo nese rrjeshti ekziston tek nje tabel, nese getInt tek resultset kthen me shume se 0
     public static boolean rowExistsHelperFun(String tableName, String col, String id, DBConnection db) {
         if (id == null) return false;
         String query = "select count(*) from " + tableName + " where " + col+ " = " + id;
@@ -47,7 +48,7 @@ public class DBManager {
 //            e.printStackTrace();
 //        }
 //    }
-    // Execute a query, check what type if to print a column or return a row
+    // Kryen nje query, dhe sipas llojit qe kerkohet kthen pergjigjen/rezultatin
     public static void execQuery(String q, DBConnection db, String qType, String cName) {
         try (Statement stmt = db.Connect().createStatement();
              ResultSet result = stmt.executeQuery(q);
@@ -68,6 +69,8 @@ public class DBManager {
             e.printStackTrace();
         }
     }
+
+    // funksion per te kryer te gjithe funksionet qe ndryshojn tabelat dhe tregon cfare u ndryshua
     public static void execUpdate(String q, DBConnection db) {
         String info = "";
 
@@ -96,6 +99,8 @@ public class DBManager {
         }
     }
 
+
+    //funksion per te krijuar nje tabele, merr kolonat dhe tipin, emrin e tabeles
     public static void createTable(Map<String, String> koloneTip, String tableName, DBConnection db) {
         String firstHalf = "create table " + tableName + " ( ";
         String secondHalf = "";
@@ -108,12 +113,14 @@ public class DBManager {
 
     }
 
-
+    //funksion i thjeshte per te fshire nje tabel
     public static void deleteTable(String tableName, DBConnection db) {
         execUpdate("drop table " + tableName, db);
     }
 
 
+
+    //Funksion i pergjithshem per krijimin e nje rrjeshti ne nje tabele, merr nje list me vlera ose emerkolone-vlere
     public static void createRow(Map<String, String> koloneVlere, String[] vals, String tableName, DBConnection db) {
 
 
@@ -142,6 +149,7 @@ public class DBManager {
         execUpdate(query, db);
     }
 
+    //Fshirja e nje rrjeshti specifik sipas key-value set te par (zakonisht id qe eshte e para ne koloneVlere)
     public static void deleteRow(Map<String, String> koloneVlere, String tableName, DBConnection db){
         String colId = koloneVlere.keySet().iterator().next();
         String idVal = koloneVlere.get(colId);
